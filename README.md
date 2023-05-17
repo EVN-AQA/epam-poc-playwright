@@ -14,3 +14,8 @@ This framework run on Java 11.
 Open terminal of your project and run the command line below:
 
 `mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="codegen"`
+
+## Use Trace Viewer(Screenshot)
+Open terminal of your project and run the command line below:
+
+`mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="show-trace traces/<fileNameTest>.zip"`

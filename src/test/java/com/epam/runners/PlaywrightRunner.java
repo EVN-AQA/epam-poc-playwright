@@ -1,0 +1,86 @@
+package com.epam.runners;
+import annotations.PlaywrightPage;
+import com.microsoft.playwright.*;
+import org.junit.jupiter.api.*;
+import pages.HomePage;
+import utils.EnvironmentReader;
+
+import java.nio.file.Paths;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class PlaywrightRunner {
+    protected Page page;
+    protected BrowserContext browserContext;
+    protected Browser browser;
+    protected Playwright playwright;
+    @PlaywrightPage
+    protected HomePage homePage;
+
+    @BeforeAll
+    public void init(){
+        playwright = Playwright.create();
+    }
+
+    @BeforeEach
+    public void setUp() {
+        String browserName = System.getProperty("browserName");
+        if (browserName == null) {
+            browserName = EnvironmentReader.getProperty("browserName");
+        }
+        System.out.println("Browser name is : " + browserName);
+        switch (browserName.toLowerCase()) {
+            case "chromium":
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                break;
+            case "firefox":
+                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                break;
+            case "safari":
+                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                break;
+            case "chrome":
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
+                break;
+            case "edge":
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(false));
+                break;
+
+            default:
+                System.out.println("please pass the right browser name......");
+                break;
+        }
+        browserContext = browser.newContext();
+        browserContext.setDefaultTimeout(40000);
+        browserContext.tracing().start(new Tracing.StartOptions()
+                .setScreenshots(true)
+                .setSnapshots(false)
+                .setSources(false));
+
+        page = browserContext.newPage();
+        initPage(this, page);
+    }
+
+    private void initPage(Object object, Page page) {
+        Class<?> clazz = object.getClass().getSuperclass();
+        for(Field field : clazz.getDeclaredFields()) {
+            if(field.isAnnotationPresent(PlaywrightPage.class)) {
+                Class<?>[] type = {Page.class};
+                try {
+                    field.set(this, field.getType().getConstructor(type).newInstance(page));
+                } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+                    System.out.println("Did not manage to call constructor for playwright page with name " + field.getName());
+                }
+            }
+        }
+    }
+
+    @AfterEach
+    public void tearDown(TestInfo testInfo) {
+        browserContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get("traces/" + testInfo.getDisplayName().replace("()", "") + ".zip")));
+        browserContext.close();
+        browser.close();
+    }
+}
+
