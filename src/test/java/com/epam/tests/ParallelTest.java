@@ -3,10 +3,10 @@ package com.epam.tests;
 import com.epam.runners.*;
 import org.junit.jupiter.api.*;
 
-public class ExampleTestNew extends PlaywrightRunner {
+public class ParallelTest extends PlaywrightRunner {
 
     @Test
-    public void openEpamPageTest() {
+    public void parallelPageTest() {
         homePage.navigate();
         homePage.checkTitleHomePage();
     }
