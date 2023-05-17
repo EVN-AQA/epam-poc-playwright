@@ -10,4 +10,10 @@ public class ExampleTest extends PlaywrightRunner {
         homePage.navigate();
         homePage.checkTitleHomePage();
     }
+
+    @Test
+    public void openEpamPageTest1() {
+        homePage.navigate();
+        homePage.checkTitleHomePage();
+    }
 }
