@@ -15,6 +15,9 @@ public class PlaywrightRunner {
     protected BrowserContext browserContext;
     protected Browser browser;
     protected Playwright playwright;
+    private boolean isMobile;
+    private boolean headless;
+    private int width, height;
     @PlaywrightPage
     protected HomePage homePage;
 
@@ -29,29 +32,47 @@ public class PlaywrightRunner {
         if (browserName == null) {
             browserName = EnvironmentReader.getProperty("browserName");
         }
+        if (System.getProperty("isMobile") != null) {
+            isMobile = Boolean.parseBoolean(System.getProperty("isMobile"));
+        } else {
+            isMobile = Boolean.parseBoolean(EnvironmentReader.getProperty("isMobile"));
+        }
+        if (System.getProperty("headless") != null) {
+            headless = Boolean.parseBoolean(System.getProperty("headless"));
+        } else {
+            headless = Boolean.parseBoolean(EnvironmentReader.getProperty("headless"));
+        }
         System.out.println("Browser name is : " + browserName);
         switch (browserName.toLowerCase()) {
             case "chromium":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(headless));
                 break;
             case "firefox":
-                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(headless));
                 break;
             case "safari":
-                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(headless));
                 break;
             case "chrome":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(headless));
                 break;
             case "edge":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(false));
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(headless));
                 break;
 
             default:
                 System.out.println("please pass the right browser name......");
                 break;
         }
-        browserContext = browser.newContext();
+        if (isMobile) {
+            width = Integer.parseInt(EnvironmentReader.getProperty("mobileWidth"));
+            height = Integer.parseInt(EnvironmentReader.getProperty("mobileHeight"));
+        } else {
+            width = Integer.parseInt(EnvironmentReader.getProperty("deskWidth"));
+            height = Integer.parseInt(EnvironmentReader.getProperty("deskHeight"));
+        }
+        browserContext = browser.newContext(new Browser.NewContextOptions()
+                .setViewportSize(width, height).setIsMobile(isMobile));
         browserContext.setDefaultTimeout(40000);
         browserContext.tracing().start(new Tracing.StartOptions()
                 .setScreenshots(true)
