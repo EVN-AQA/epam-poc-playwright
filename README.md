@@ -19,3 +19,9 @@ Open terminal of your project and run the command line below:
 Open terminal of your project and run the command line below:
 
 `mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="show-trace traces/<fileNameTest>.zip"`
+
+## Generate Allure report
+When running the tests, `allure-results` folder is generated.
+To view report, use command:
+
+`allure serve allure-results`
