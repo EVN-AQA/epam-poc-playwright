@@ -1,9 +1,9 @@
-package com.epam.tests;
+package com.epam.tests.web;
 
-import com.epam.runners.PlaywrightRunner;
+import com.epam.runners.PlaywrightWebRunner;
 import org.junit.jupiter.api.Test;
 
-public class ExampleTest extends PlaywrightRunner {
+public class ExampleTest extends PlaywrightWebRunner {
 
     @Test
     public void openEpamPageTest() {
