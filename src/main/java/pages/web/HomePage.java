@@ -1,4 +1,4 @@
-package pages;
+package pages.web;
 
 import com.microsoft.playwright.Page;
 import utils.EnvironmentReader;

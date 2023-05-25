@@ -6,9 +6,13 @@ This framework run on Java 11.
 ## Run your first Playwright test
 1. Clone this repository
 2. Install the dependencies on pom.xml
-3. Run the sample script using:
+3. Choose the command line below to run test on Web or Mobile:
 
-`mvn compile exec:java -D exec.mainClass="org.example.Example"`
+On Web:
+`mvn test -Dgroups="RunOnWeb"`
+
+On Mobile:
+`mvn test -Dgroups="RunOnMobile"`
 
 ## Use Test Generator
 Open terminal of your project and run the command line below:

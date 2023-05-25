@@ -2,7 +2,8 @@ package com.epam.runners;
 import annotations.PlaywrightPage;
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
-import pages.HomePage;
+import pages.web.HeaderPage;
+import pages.web.HomePage;
 import utils.EnvironmentReader;
 
 import java.nio.file.Paths;
@@ -10,16 +11,18 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class PlaywrightRunner {
+public class PlaywrightWebRunner {
     protected Page page;
     protected BrowserContext browserContext;
     protected Browser browser;
     protected Playwright playwright;
-    private boolean isMobile;
     private boolean headless;
     private int width, height;
     @PlaywrightPage
     protected HomePage homePage;
+
+    @PlaywrightPage
+    protected HeaderPage headerPage;
 
     @BeforeAll
     public void init(){
@@ -31,11 +34,6 @@ public class PlaywrightRunner {
         String browserName = System.getProperty("browserName");
         if (browserName == null) {
             browserName = EnvironmentReader.getProperty("browserName");
-        }
-        if (System.getProperty("isMobile") != null) {
-            isMobile = Boolean.parseBoolean(System.getProperty("isMobile"));
-        } else {
-            isMobile = Boolean.parseBoolean(EnvironmentReader.getProperty("isMobile"));
         }
         if (System.getProperty("headless") != null) {
             headless = Boolean.parseBoolean(System.getProperty("headless"));
@@ -64,15 +62,10 @@ public class PlaywrightRunner {
                 System.out.println("please pass the right browser name......");
                 break;
         }
-        if (isMobile) {
-            width = Integer.parseInt(EnvironmentReader.getProperty("mobileWidth"));
-            height = Integer.parseInt(EnvironmentReader.getProperty("mobileHeight"));
-        } else {
-            width = Integer.parseInt(EnvironmentReader.getProperty("deskWidth"));
-            height = Integer.parseInt(EnvironmentReader.getProperty("deskHeight"));
-        }
+        width = Integer.parseInt(EnvironmentReader.getProperty("deskWidth"));
+        height = Integer.parseInt(EnvironmentReader.getProperty("deskHeight"));
         browserContext = browser.newContext(new Browser.NewContextOptions()
-                .setViewportSize(width, height).setIsMobile(isMobile));
+                .setViewportSize(width, height));
         browserContext.setDefaultTimeout(40000);
         browserContext.tracing().start(new Tracing.StartOptions()
                 .setScreenshots(true)
@@ -101,7 +94,5 @@ public class PlaywrightRunner {
     public void tearDown(TestInfo testInfo) {
         browserContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get("traces/" + testInfo.getDisplayName().replace("()", "") + ".zip")));
         browserContext.close();
-        browser.close();
     }
 }
-
