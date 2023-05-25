@@ -16,3 +16,6 @@ traces/
 
 ### Mac OS ###
 .DS_Store
+
+### Report ###
+allure-results/
