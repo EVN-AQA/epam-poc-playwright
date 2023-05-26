@@ -2,14 +2,17 @@ package com.epam.runners;
 
 import annotations.PlaywrightPage;
 import com.microsoft.playwright.*;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
 import pages.mobile.HeaderPage;
 import pages.mobile.HomePage;
 import utils.EnvironmentReader;
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
+
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PlaywrightMobileRunner {
@@ -93,7 +96,14 @@ public class PlaywrightMobileRunner {
 
     @AfterEach
     public void tearDown(TestInfo testInfo) {
+        takeScreenshot(testInfo);
         browserContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get("traces/" + testInfo.getDisplayName().replace("()", "") + ".zip")));
         browserContext.close();
+    }
+
+    public void takeScreenshot(TestInfo testInfo) {
+        String path = "screenshots/" + testInfo.getDisplayName().replace("()", "") + ".png";
+        Allure.addAttachment("Page screenshot", new ByteArrayInputStream(page.screenshot(new Page.ScreenshotOptions()
+                .setPath(Paths.get(path)))));
     }
 }
