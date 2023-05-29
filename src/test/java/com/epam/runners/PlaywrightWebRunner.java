@@ -1,6 +1,7 @@
 package com.epam.runners;
 import annotations.PlaywrightPage;
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.Geolocation;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
 import pages.web.Common;
@@ -71,7 +72,7 @@ public class PlaywrightWebRunner {
         width = Integer.parseInt(EnvironmentReader.getProperty("deskWidth"));
         height = Integer.parseInt(EnvironmentReader.getProperty("deskHeight"));
         browserContext = browser.newContext(new Browser.NewContextOptions()
-                .setViewportSize(width, height));
+                .setViewportSize(width, height).setGeolocation(new Geolocation(15.9030623, 105.8066925)));
         browserContext.setDefaultTimeout(40000);
         browserContext.tracing().start(new Tracing.StartOptions()
                 .setScreenshots(true)
