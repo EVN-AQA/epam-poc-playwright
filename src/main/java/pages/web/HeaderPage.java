@@ -13,7 +13,7 @@ public class HeaderPage {
     private final Page headerPage;
 
     private static final String LOCATION_MENU_BTN = "button.location-selector__button";
-
+    private static final String CONTACTUS_MENU_BTN= ".header__content>a[data-gtm-category='header-contact-cta']>span";
     public HeaderPage(Page page) {
         this.headerPage = page;
     }
@@ -60,5 +60,16 @@ public class HeaderPage {
                 () -> assertThat(headerPage).hasTitle(Pattern.compile(title)),
                 () -> assertThat(headerPage).hasURL(Pattern.compile(url))
         );
+    }
+
+    public void verifyContactUsItemDisplayed() {
+
+        assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).isVisible();
+        assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).hasText("CONTACT US");
+    }
+
+    public void verifyColorContactUsItem() {
+        headerPage.locator(CONTACTUS_MENU_BTN).hover();
+        assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).hasCSS("background-color", "rgb(255, 255, 255)");
     }
 }
