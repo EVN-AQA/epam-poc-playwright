@@ -1,7 +1,7 @@
 package pages.web;
 
 import com.microsoft.playwright.Page;
-import utils.EnvironmentReader;
+import core.Configuration;
 
 import java.util.regex.Pattern;
 
@@ -17,7 +17,7 @@ public class HomePage {
     }
 
     public void navigate() {
-        homePage.navigate(EnvironmentReader.getProperty("url"));
+        homePage.navigate(Configuration.get().getProperty("url"));
     }
 
     public void checkTitleHomePage() {

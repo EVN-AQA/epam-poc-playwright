@@ -1,15 +1,29 @@
 package com.epam.tests.web;
 
-import com.epam.runners.PlaywrightWebRunner;
-import jdk.jfr.Description;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import com.epam.runners.PlaywrightRunner;
+import io.qameta.allure.Description;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import utils.CsvReader;
 
-@Tag("RunOnWeb")
-public class HeaderLocationTest extends PlaywrightWebRunner {
+public class HeaderLocationTest extends PlaywrightRunner {
+
+    @DataProvider(name = "navOptions")
+    public Object[][] navOptions() {
+        return new Object[][]{
+                {"Services"},
+                {"Insights"},
+                {"About"},
+                {"Careers"},
+                {"Contact us"}
+        };
+    }
+
+    @DataProvider(name = "locationData")
+    public Object[][] locationData() {
+        return CsvReader.load("testData/LocationData.csv", 3);
+    }
+
     @Test
     @Description("Test case 571")
     public void verifyLocationDefaultText() {
@@ -26,8 +40,7 @@ public class HeaderLocationTest extends PlaywrightWebRunner {
         headerPage.verifyLocationMenuDisplayed();
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/LocationData.csv", numLinesToSkip = 1, delimiterString = ";")
+    @Test(dataProvider = "locationData")
     @Description("Test case 575 + 579")
     public void verifySwitchLocation(String location, String title, String url) {
         homePage.navigate();
@@ -36,8 +49,7 @@ public class HeaderLocationTest extends PlaywrightWebRunner {
         headerPage.verifySwitchLocationSuccessful(title, url);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = { "Services", "Insights", "About", "Careers", "Contact us"})
+    @Test(dataProvider = "navOptions")
     @Description("Test case 577")
     public void verifyLocationDisplayedOnAnyPages(String mainNavigationName) {
         homePage.navigate();
