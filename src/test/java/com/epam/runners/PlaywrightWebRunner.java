@@ -96,7 +96,7 @@ public class PlaywrightWebRunner {
     public void tearDown(TestInfo testInfo) {
         takeScreenshot(testInfo);
         browserContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get("traces/" + testInfo.getDisplayName().replace("()", "") + ".zip")));
-        browserContext.close();
+        browser.close();
     }
 
     public void takeScreenshot(TestInfo testInfo) {
