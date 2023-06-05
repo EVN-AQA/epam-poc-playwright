@@ -3,6 +3,7 @@ import annotations.PlaywrightPage;
 import com.microsoft.playwright.*;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
+import pages.web.Common;
 import pages.web.HeaderPage;
 import pages.web.HomePage;
 import utils.EnvironmentReader;
@@ -25,6 +26,9 @@ public class PlaywrightWebRunner {
 
     @PlaywrightPage
     protected HeaderPage headerPage;
+
+    @PlaywrightPage
+    protected Common common;
 
     @BeforeAll
     public void init(){
