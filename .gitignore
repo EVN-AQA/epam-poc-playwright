@@ -19,5 +19,6 @@ traces/
 .DS_Store
 
 ### Report ###
+.allure
 allure-results/
 screenshots/

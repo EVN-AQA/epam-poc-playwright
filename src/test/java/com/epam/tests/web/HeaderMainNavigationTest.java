@@ -1,13 +1,22 @@
 package com.epam.tests.web;
-import com.epam.runners.PlaywrightWebRunner;
-import jdk.jfr.Description;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-@Tag("linhtest")
-public class HeaderMainNavigationTest extends PlaywrightWebRunner{
+
+import com.epam.runners.PlaywrightRunner;
+import io.qameta.allure.Description;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class HeaderMainNavigationTest extends PlaywrightRunner {
+
+    @DataProvider(name = "navOptionsEachPage")
+    public Object[][] navOptions() {
+        return new Object[][]{
+                {"Services"},
+                {"Insights"},
+                {"About"},
+                {"Careers"}
+        };
+    }
+
     @Test
     @Description("Test case 584")
     public void verifyLabelDisplayed() {
@@ -29,16 +38,17 @@ public class HeaderMainNavigationTest extends PlaywrightWebRunner{
         headerPage.verifyInsightsLabelDisplayed();
         headerPage.verifyServicesLabelDisplayed();
     }
+
     @Test
     @Description("Test case 542")
-    public void verifyMainNavigationDisplay(){
+    public void verifyMainNavigationDisplay() {
         homePage.navigate();
         headerPage.verifyMainNavigationDisplayedTop();
     }
 
     @Test
     @Description("Test case 585")
-    public void verifyColorChangeOfMainNavigation(){
+    public void verifyColorChangeOfMainNavigation() {
         homePage.navigate();
 //        headerPage.verifyColorChangeOfIndustries();
         headerPage.verifyColorChangeOfAbout();
@@ -46,8 +56,8 @@ public class HeaderMainNavigationTest extends PlaywrightWebRunner{
         headerPage.verifyColorChangeOfInsight();
         headerPage.verifyColorChangeOfServices();
     }
-    @ParameterizedTest
-    @ValueSource(strings = { "Services", "Insights", "About", "Careers"})
+
+    @Test(dataProvider = "navOptionsEachPage")
     @Description("Test case 577")
     public void verifyLocationDisplayedOnAnyPages(String mainNavigationName) {
         homePage.navigate();
