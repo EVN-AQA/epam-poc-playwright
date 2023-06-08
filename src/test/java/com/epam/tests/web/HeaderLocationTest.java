@@ -4,7 +4,7 @@ import com.epam.runners.PlaywrightRunner;
 import io.qameta.allure.Description;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import utils.CsvReader;
+import utils.JsonReader;
 
 public class HeaderLocationTest extends PlaywrightRunner {
 
@@ -21,7 +21,7 @@ public class HeaderLocationTest extends PlaywrightRunner {
 
     @DataProvider(name = "locationData")
     public Object[][] locationData() {
-        return CsvReader.load("testData/LocationData.csv", 3);
+        return JsonReader.load("testData/LocationData.json");
     }
 
     @Test

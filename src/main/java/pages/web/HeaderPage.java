@@ -3,6 +3,7 @@ package pages.web;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.qameta.allure.Step;
+import com.microsoft.playwright.options.LoadState;
 import org.testng.asserts.SoftAssert;
 
 import java.util.Objects;
@@ -78,10 +79,10 @@ public class HeaderPage extends Common{
 
     @Step("Verify switch Location successfully")
     public void verifySwitchLocationSuccessful(String title, String url) {
-//        assertAll(
-//                () -> assertThat(headerPage).hasTitle(Pattern.compile(title)),
-//                () -> assertThat(headerPage).hasURL(Pattern.compile(url))
-//        );
+        headerPage.waitForURL(url);
+        sortAssert.assertEquals(headerPage.title(), title);
+        sortAssert.assertEquals(headerPage.url(), url);
+        sortAssert.assertAll();
     }
 
     @Step("Verify Contact Us item is displayed")
