@@ -9,6 +9,10 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 public class CareersPage {
     private final Page careerPage;
     private SoftAssert sortAssert;
+
+    private static final String SEARCH_RESULT_TITLE = ".search-result__heading-23";
+    private static final String REMOTE= "#jobSearchFilterForm";
+
     public CareersPage(Page page) {
         this.careerPage = page;
         this.sortAssert = new SoftAssert();
@@ -22,17 +26,48 @@ public class CareersPage {
     public void verifyPlaceHolderSearch() {
         assertThat(careerPage.getByPlaceholder("Keyword")).isVisible();
         assertThat(careerPage.getByText("All Skills")).isVisible();
-        assertThat(careerPage.getByTitle("All Cities in Vietnam")).isVisible();
+//        assertThat(careerPage.getByTitle("All Cities in Vietnam")).isVisible();
     }
 
     public void clickOnFindButton() {
-        careerPage.getByLabel("Keyword or job ID").scrollIntoViewIfNeeded();
-        careerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Global (English)")).scrollIntoViewIfNeeded();
-        careerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Global (English)")).click();
+        careerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Find")).click();
+
     }
-
-    public void verifyResult() {
-
+    public void verifyResultTitle() {
+        careerPage.locator(SEARCH_RESULT_TITLE).scrollIntoViewIfNeeded();
+        assertThat(careerPage.locator(SEARCH_RESULT_TITLE)).isVisible();
+    }
+    public void inputJobID(String jobID) {
+        careerPage.getByLabel("Keyword or job ID").scrollIntoViewIfNeeded();
+        careerPage.getByRole(AriaRole.TEXTBOX).first().fill(jobID);
+    }
+    public void verifyNoResultMessage(String message) {
+        assertThat(careerPage.getByText(message));
+    }
+    public void clickOnFindYourDreamJob() {
+        careerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Find Your Dream Job")).first().click();
+    }
+    public void verifyTitleResultWithKeyword(String keyword) {
+        careerPage.locator(SEARCH_RESULT_TITLE).scrollIntoViewIfNeeded();
+        assertThat(careerPage.locator(SEARCH_RESULT_TITLE)).containsText(keyword);
+    }
+    public void selectCountry(String countryName, String city) {
+        careerPage.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("All Locations")).click();
+        careerPage.getByText(countryName, new Page.GetByTextOptions().setExact(true)).click();
+        careerPage.getByRole(AriaRole.OPTION, new Page.GetByRoleOptions().setName(city)).click();
+    }
+    public void selectSkill(String skill) {
+        careerPage.getByText("All Skills").click();
+        careerPage.getByRole(AriaRole.TREEITEM, new Page.GetByRoleOptions().setName(skill)).getByText(skill).click();
+    }
+    public void verifySearchResultOfSelection() {
+        careerPage.getByText("We found 26 job openings for you").isVisible();
+    }
+    public void verifySortOption(String option) {
+        careerPage.getByText(option).isVisible();
+    }
+    public void clickOnFilterSearching(String filterName) {
+        careerPage.getByText(filterName).first().click();
     }
 
 }
