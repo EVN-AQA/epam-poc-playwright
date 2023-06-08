@@ -2,6 +2,7 @@ package pages.web;
 
 import com.microsoft.playwright.Page;
 import core.Configuration;
+import io.qameta.allure.Step;
 
 import java.util.regex.Pattern;
 
@@ -16,10 +17,12 @@ public class HomePage {
         this.homePage = page;
     }
 
+    @Step("Navigate to a url")
     public void navigate() {
         homePage.navigate(Configuration.get().getProperty("url"));
     }
 
+    @Step("Check title of Home page")
     public void checkTitleHomePage() {
         assertThat(homePage).hasTitle(Pattern.compile("Software Engineering & Product Development Services"));
     }

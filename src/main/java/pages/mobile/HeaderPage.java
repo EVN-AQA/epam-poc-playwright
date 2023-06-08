@@ -5,6 +5,7 @@
 //
 //import java.util.Objects;
 //import java.util.regex.Pattern;
+//import io.qameta.allure.Step;
 //
 //import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 //
@@ -17,10 +18,12 @@
 //        this.headerPage = page;
 //    }
 //
+//    @Step("Click on Hamburger menu")
 //    public void clickHamburgerMenu() {
 //        headerPage.getByRole(AriaRole.BANNER).getByRole(AriaRole.BUTTON).first().click();
 //    }
 //
+//    @Step("Click on main navigation {mainNavigationName} option")
 //    public void clickMainNavigationOption(String mainNavigationName) {
 //        if(Objects.equals(mainNavigationName, "Contact us")) {
 //            headerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("CONTACT US")).click();
@@ -30,18 +33,22 @@
 //        }
 //    }
 //
+//    @Step("Click on Location menu")
 //    public void clickLocationMenu() {
 //        headerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Global (EN)")).click();
 //    }
 //
+//    @Step("Click on Location {locationName} option")
 //    public void clickLocationOption(String locationName) {
 //        headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(locationName)).click();
 //    }
 //
+//    @Step("Verify Location default text is displayed")
 //    public void verifyLocationDefaultTextDisplayed() {
 //        assertThat(headerPage.locator(LOCATION_MENU_BTN)).hasText("Global (EN)");
 //    }
 //
+//    @Step("Verify Location menu is displayed")
 //    public void verifyLocationMenuDisplayed() {
 ////        assertAll(
 ////                () -> assertThat(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Global (English)"))).isVisible(),
@@ -58,6 +65,7 @@
 ////        );
 //    }
 //
+//    @Step("Verify switch Location successfully")
 //    public void verifySwitchLocationSuccessful(String title, String url) {
 ////        assertAll(
 ////                () -> assertThat(headerPage).hasTitle(Pattern.compile(title)),
