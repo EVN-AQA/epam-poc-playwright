@@ -2,6 +2,8 @@ package pages.web;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import io.qameta.allure.Step;
+import com.microsoft.playwright.options.LoadState;
 import org.testng.asserts.SoftAssert;
 
 import java.util.Objects;
@@ -28,6 +30,7 @@ public class HeaderPage extends Common{
         this.sortAssert = new SoftAssert();
     }
 
+    @Step("Click on main navigation {mainNavigationName} option")
     public void clickMainNavigationOption(String mainNavigationName) {
         if (Objects.equals(mainNavigationName, "Contact us")) {
             headerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("CONTACT US")).click();
@@ -37,22 +40,28 @@ public class HeaderPage extends Common{
         }
     }
 
+    @Step("Verify corresponding navigation {navigationName}")
     public void verifyCorrespondingNavigation(String navigationName) {
         assertThat(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(navigationName)).first()).isVisible();
 
     }
+
+    @Step("Click on Location menu")
     public void clickLocationMenu() {
         headerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Global (EN)")).click();
     }
 
+    @Step("Click on Location {locationName} option")
     public void clickLocationOption(String locationName) {
         headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(locationName)).click();
     }
 
+    @Step("Verify Location default text is displayed")
     public void verifyLocationDefaultTextDisplayed() {
         assertThat(headerPage.locator(LOCATION_MENU_BTN)).hasText("Global (EN)");
     }
 
+    @Step("Verify Location menu is displayed")
     public void verifyLocationMenuDisplayed() {
         sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Global (English)")).isVisible());
         sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Česká Republika (Čeština)")).isVisible());
@@ -68,78 +77,98 @@ public class HeaderPage extends Common{
         sortAssert.assertAll();
     }
 
+    @Step("Verify switch Location successfully")
     public void verifySwitchLocationSuccessful(String title, String url) {
-//        assertAll(
-//                () -> assertThat(headerPage).hasTitle(Pattern.compile(title)),
-//                () -> assertThat(headerPage).hasURL(Pattern.compile(url))
-//        );
+        headerPage.waitForURL(url);
+        sortAssert.assertEquals(headerPage.title(), title);
+        sortAssert.assertEquals(headerPage.url(), url);
+        sortAssert.assertAll();
     }
 
+    @Step("Verify Contact Us item is displayed")
     public void verifyContactUsItemDisplayed() {
 
         assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).isVisible();
         assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).hasText("CONTACT US");
     }
 
+    @Step("Verify color of Contact Us item")
     public void verifyColorContactUsItem() {
         headerPage.locator(CONTACTUS_MENU_BTN).hover();
         assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).hasCSS("background-color", "rgb(255, 255, 255)");
     }
+
+    @Step("Verify Services label is displayed")
     public void verifyServicesLabelDisplayed() {
         headerPage.locator(SERVICES_LINK).hover();
         assertThat(headerPage.locator(HOVER_ITEM)).isVisible();
     }
+
+    @Step("Verify Insights label is displayed")
     public void verifyInsightsLabelDisplayed() {
         headerPage.locator(INSIGHT).hover();
         assertThat(headerPage.locator(HOVER_ITEM)).isVisible();
     }
+
+    @Step("Verify Abouts label is displayed")
     public void verifyAboutsLabelDisplayed() {
         headerPage.locator(ABOUT).hover();
         assertThat(headerPage.locator(HOVER_ITEM)).isVisible();
     }
+
+    @Step("Verify Career label is displayed")
     public void verifyCareerLabelDisplayed() {
         headerPage.locator(CAREER).hover();
         assertThat(headerPage.locator(HOVER_ITEM)).isVisible();
     }
+
+    @Step("Verify Industries label is displayed")
     public void verifyIndustriesLabelDisplayed() {
         headerPage.locator(INDUSTRIES).hover();
         assertThat(headerPage.locator(HOVER_ITEM)).isVisible();
     }
 
+    @Step("Verify main navigation is displayed on top")
     public void verifyMainNavigationDisplayedTop() {
         assertThat(headerPage.locator(MAIN_NAVIGATION)).isVisible();
     }
 
+    @Step("Verify color change of Services")
     public void verifyColorChangeOfServices() {
         assertThat(headerPage.locator(SERVICES_LINK)).hasCSS("color", "rgb(255, 255, 255)");
         headerPage.locator(SERVICES_LINK).hover();
         assertThat(headerPage.locator(SERVICES_LINK)).hasCSS("color", "rgb(0, 246, 255)");
     }
 
+    @Step("Verify color change of Industries")
     public void verifyColorChangeOfIndustries() {
         assertThat(headerPage.locator(INDUSTRIES)).hasCSS("color", "rgb(255, 255, 255)");
         headerPage.locator(INDUSTRIES).hover();
         assertThat(headerPage.locator(INDUSTRIES)).hasCSS("color", "rgb(0, 246, 255)");
     }
 
+    @Step("Verify color change of Insight")
     public void verifyColorChangeOfInsight() {
         assertThat(headerPage.locator(INSIGHT)).hasCSS("color", "rgb(255, 255, 255)");
         headerPage.locator(INSIGHT).hover();
         assertThat(headerPage.locator(INSIGHT)).hasCSS("color", "rgb(0, 246, 255)");
     }
 
+    @Step("Verify color change of About")
     public void verifyColorChangeOfAbout() {
         assertThat(headerPage.locator(ABOUT)).hasCSS("color", "rgb(255, 255, 255)");
         headerPage.locator(ABOUT).hover();
         assertThat(headerPage.locator(ABOUT)).hasCSS("color", "rgb(0, 246, 255)");
     }
 
+    @Step("Verify color change of Career")
     public void verifyColorChangeOfCareer() {
         assertThat(headerPage.locator(CAREER)).hasCSS("color", "rgb(255, 255, 255)");
         headerPage.locator(CAREER).hover();
         assertThat(headerPage.locator(CAREER)).hasCSS("color", "rgb(0, 246, 255)");
     }
 
+    @Step("Click on Services item")
     public void ClickOnServicesItem(){
         headerPage.locator(SERVICES_LINK).click();
 
