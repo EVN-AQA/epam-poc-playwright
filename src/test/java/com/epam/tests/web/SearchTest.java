@@ -51,7 +51,7 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 667")
     public void verifySearchMatchingWithKeyword() {
-        String jobId = "automation test";
+        String jobId = "test";
         homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.inputJobID(jobId);
@@ -63,6 +63,7 @@ public class SearchTest extends PlaywrightRunner {
     public void verifySearchMatchingWithSkill() {
         homePage.navigate();
         headerPage.navigateToCareersPage();
+        careersPage.selectCountry("Argentina", "All Cities in Argentina");
         careersPage.selectSkill("Business and Data Analysis");
         careersPage.clickOnFindButton();
         careersPage.verifySearchResultOfSelection();
@@ -82,8 +83,8 @@ public class SearchTest extends PlaywrightRunner {
     public void verifySearchWithCombination() {
         homePage.navigate();
         headerPage.navigateToCareersPage();
-        careersPage.selectCountry("Singapore", "All Cities in Singapore");
         careersPage.inputJobID("automation");
+        careersPage.selectCountry("Singapore", "All Cities in Singapore");
         careersPage.clickOnFindButton();
         careersPage.verifySearchResultOfSelection();
     }

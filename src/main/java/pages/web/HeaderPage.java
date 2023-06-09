@@ -175,5 +175,6 @@ public class HeaderPage extends Common{
     }
     public void navigateToCareersPage() {
         headerPage.locator(CAREER).click();
+        headerPage.waitForLoadState();
     }
 }
