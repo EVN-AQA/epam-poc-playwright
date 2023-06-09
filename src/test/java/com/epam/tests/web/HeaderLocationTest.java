@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import utils.JsonReader;
 
 public class HeaderLocationTest extends PlaywrightRunner {
-
     @DataProvider(name = "navOptions")
     public Object[][] navOptions() {
         return new Object[][]{

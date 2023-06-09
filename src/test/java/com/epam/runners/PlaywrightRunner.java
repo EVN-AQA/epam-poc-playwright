@@ -7,6 +7,7 @@ import core.PlaywrightFactory;
 import core.enums.ENVIRONMENT;
 import io.qameta.allure.Allure;
 import org.testng.annotations.*;
+import pages.web.CareersPage;
 import pages.web.Common;
 import pages.web.HeaderPage;
 import pages.web.HomePage;
@@ -29,6 +30,8 @@ public class PlaywrightRunner {
     @PlaywrightPage
     protected Common common;
 
+    @PlaywrightPage
+    protected CareersPage careersPage;
     @BeforeTest
     public void loadEnvironment() {
         try {
