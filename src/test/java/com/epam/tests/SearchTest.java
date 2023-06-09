@@ -1,4 +1,4 @@
-package com.epam.tests.web;
+package com.epam.tests;
 import com.epam.runners.PlaywrightRunner;
 import io.qameta.allure.Description;
 import io.qameta.allure.testng.Tag;
