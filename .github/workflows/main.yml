@@ -51,7 +51,6 @@ jobs:
           PUBLISH_DIR: allure-history
 
       - name: Archive production artifacts
-        if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v3
         with:
           name: dist-without-markdown
@@ -60,7 +59,6 @@ jobs:
             !dist/**/*.md
 
       - name: Archive code coverage results
-        if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
