@@ -65,3 +65,10 @@ jobs:
         with:
           name: code-coverage-report
           path: output/test/code-coverage.html
+
+      - name: Zip result
+        uses: vimtor/action-zip@v1
+        if: always()
+        with:
+          files: dist/ manifest.json
+          dest: result.zip
