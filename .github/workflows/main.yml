@@ -43,8 +43,8 @@ jobs:
           keep_reports: 20
 
       - name: Deploy report to Github Pages
-        if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v2
+        if: github.ref == 'refs/heads/master'
         env:
           PERSONAL_TOKEN: ${{ secrets.ACTION_TOKEN }}
           PUBLISH_BRANCH: gh-pages
@@ -52,6 +52,7 @@ jobs:
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: dist-without-markdown
           path: |
@@ -60,6 +61,7 @@ jobs:
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: code-coverage-report
           path: output/test/code-coverage.html
