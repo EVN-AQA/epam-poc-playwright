@@ -87,7 +87,6 @@ public class HeaderPage extends Common{
 
     @Step("Verify Contact Us item is displayed")
     public void verifyContactUsItemDisplayed() {
-
         assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).isVisible();
         assertThat(headerPage.locator(CONTACTUS_MENU_BTN)).hasText("CONTACT US");
     }

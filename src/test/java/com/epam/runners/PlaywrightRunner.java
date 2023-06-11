@@ -7,10 +7,7 @@ import core.PlaywrightFactory;
 import core.enums.ENVIRONMENT;
 import io.qameta.allure.Allure;
 import org.testng.annotations.*;
-import pages.web.CareersPage;
-import pages.web.Common;
-import pages.web.HeaderPage;
-import pages.web.HomePage;
+import pages.web.*;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
@@ -28,7 +25,7 @@ public class PlaywrightRunner {
     @PlaywrightPage
     protected HeaderPage headerPage;
     @PlaywrightPage
-    protected Common common;
+    protected Contact contactPage;
 
     @PlaywrightPage
     protected CareersPage careersPage;
