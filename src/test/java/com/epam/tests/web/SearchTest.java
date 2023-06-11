@@ -18,7 +18,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 664")
     public void verifySearchSessionDisplayed() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.verifySearchLabel();
         careersPage.verifyPlaceHolderSearch();
@@ -26,7 +25,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 674")
     public void  verifySearchResultWithoutInput() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.clickOnFindButton();
         careersPage.verifyResultTitle();
@@ -34,7 +32,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 673")
     public void verifyNoResultMessage() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.inputJobID("abc23avc");
         careersPage.clickOnFindButton();
@@ -43,7 +40,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 666")
     public void verifySearchJobOfAllCountryAndSkill() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.clickOnFindYourDreamJob();
         careersPage.verifyResultTitle();
@@ -52,7 +48,6 @@ public class SearchTest extends PlaywrightRunner {
     @Description("Test case 667")
     public void verifySearchMatchingWithKeyword() {
         String jobId = "test";
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.inputJobID(jobId);
         careersPage.clickOnFindButton();
@@ -61,7 +56,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 670 + 677")
     public void verifySearchMatchingWithSkill() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.selectCountry("Argentina", "All Cities in Argentina");
         careersPage.selectSkill("Business and Data Analysis");
@@ -72,7 +66,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 669")
     public void verifySearchWithLocation() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.selectCountry("Argentina", "All Cities in Argentina");
         careersPage.clickOnFindButton();
@@ -81,7 +74,6 @@ public class SearchTest extends PlaywrightRunner {
     @Test
     @Description("Test case 671")
     public void verifySearchWithCombination() {
-        homePage.navigate();
         headerPage.navigateToCareersPage();
         careersPage.inputJobID("automation");
         careersPage.selectCountry("Singapore", "All Cities in Singapore");
@@ -91,8 +83,7 @@ public class SearchTest extends PlaywrightRunner {
     @Test(dataProvider = "filterSearching")
     @Description("Test case 672")
     public void verifySearchWithFilterSearching(String filter) {
-        homePage.navigate();
-        headerPage.navigateToCareersPage();
+        headerPage.clickMainNavigationOption("Careers");
         careersPage.clickOnFilterSearching(filter);
         careersPage.verifySearchResultOfSelection();
     }
