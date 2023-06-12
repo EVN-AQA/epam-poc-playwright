@@ -1,12 +1,10 @@
-name: Playwright Tests
+name: Master branch workflow
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
   schedule:
-    # Execute at 02:00 UTC daily
-    - cron: '00 02 * * *'
+    # Execute at 08:00 UTC+7 Monday to Friday
+    - cron: '0 1 * * 1-5'
 
 jobs:
   test:
@@ -43,8 +41,8 @@ jobs:
           keep_reports: 20
 
       - name: Deploy report to Github Pages
-        if: always()
         uses: peaceiris/actions-gh-pages@v2
+        if: always()
         env:
           PERSONAL_TOKEN: ${{ secrets.ACTION_TOKEN }}
           PUBLISH_BRANCH: gh-pages
