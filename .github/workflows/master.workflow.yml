@@ -1,7 +1,5 @@
 name: Master branch workflow
 on:
-  push:
-    branches: [ master ]
   schedule:
     # Execute at 08:00 UTC+7 Monday to Friday
     - cron: '0 1 * * 1-5'
