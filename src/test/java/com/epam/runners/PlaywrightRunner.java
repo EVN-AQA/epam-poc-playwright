@@ -7,10 +7,10 @@ import core.PlaywrightFactory;
 import core.enums.ENVIRONMENT;
 import io.qameta.allure.Allure;
 import org.testng.annotations.*;
-import pages.web.CareersPage;
-import pages.web.Common;
-import pages.web.HeaderPage;
-import pages.web.HomePage;
+import pages.CareersPage;
+import pages.Common;
+import pages.HeaderPage;
+import pages.HomePage;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
@@ -29,9 +29,9 @@ public class PlaywrightRunner {
     protected HeaderPage headerPage;
     @PlaywrightPage
     protected Common common;
-
     @PlaywrightPage
     protected CareersPage careersPage;
+
     @BeforeTest
     public void loadEnvironment() {
         try {
@@ -51,7 +51,10 @@ public class PlaywrightRunner {
         factory = new PlaywrightFactory();
         page = factory.initBrowser(Configuration.get());
         loadPages(this, page);
-        page.navigate(Configuration.get().getProperty("url"));
+        page.navigate("");
+        if (Boolean.parseBoolean(Configuration.get().getProperty("isMobile"))) {
+            homePage.clickAcceptAllCookie();
+        }
     }
 
     @BeforeMethod

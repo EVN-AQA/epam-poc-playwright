@@ -1,7 +1,9 @@
-package com.epam.tests.web;
+package com.epam.tests;
 
 import com.epam.runners.PlaywrightRunner;
+import core.Configuration;
 import io.qameta.allure.Description;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.JsonReader;
@@ -23,10 +25,17 @@ public class HeaderLocationTest extends PlaywrightRunner {
         return JsonReader.load("testData/LocationData.json");
     }
 
+    @BeforeMethod
+    public void setConditions() {
+        homePage.navigate();
+        if (Boolean.parseBoolean(Configuration.get().getProperty("isMobile"))) {
+            headerPage.clickHamburgerMenu();
+        }
+    }
+
     @Test
     @Description("Test case 571")
     public void verifyLocationDefaultText() {
-        homePage.navigate();
         headerPage.clickLocationMenu();
         headerPage.verifyLocationDefaultTextDisplayed();
     }
@@ -34,7 +43,6 @@ public class HeaderLocationTest extends PlaywrightRunner {
     @Test
     @Description("Test case 573")
     public void verifyAllLocationAreDisplayed() {
-        homePage.navigate();
         headerPage.clickLocationMenu();
         headerPage.verifyLocationMenuDisplayed();
     }
@@ -42,7 +50,6 @@ public class HeaderLocationTest extends PlaywrightRunner {
     @Test(dataProvider = "locationData")
     @Description("Test case 575 + 579")
     public void verifySwitchLocation(String location, String title, String url) {
-        homePage.navigate();
         headerPage.clickLocationMenu();
         headerPage.clickLocationOption(location);
         headerPage.verifySwitchLocationSuccessful(title, url);
@@ -51,8 +58,10 @@ public class HeaderLocationTest extends PlaywrightRunner {
     @Test(dataProvider = "navOptions")
     @Description("Test case 577")
     public void verifyLocationDisplayedOnAnyPages(String mainNavigationName) {
-        homePage.navigate();
         headerPage.clickMainNavigationOption(mainNavigationName);
+        if (Boolean.parseBoolean(Configuration.get().getProperty("isMobile"))) {
+            headerPage.clickHamburgerMenu();
+        }
         headerPage.clickLocationMenu();
         headerPage.verifyLocationMenuDisplayed();
     }

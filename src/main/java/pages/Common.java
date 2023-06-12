@@ -1,4 +1,4 @@
-package pages.web;
+package pages;
 
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
