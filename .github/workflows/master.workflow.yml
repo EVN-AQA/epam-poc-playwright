@@ -1,8 +1,6 @@
-name: Playwright Tests
+name: Master branch workflow
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
   schedule:
     # Execute at 08:00 UTC+7 Monday to Friday
@@ -44,15 +42,8 @@ jobs:
 
       - name: Deploy report to Github Pages
         uses: peaceiris/actions-gh-pages@v2
-        if: github.ref == 'refs/heads/master'
+        if: always()
         env:
           PERSONAL_TOKEN: ${{ secrets.ACTION_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
-
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: allure-results
-          path: allure-results/
