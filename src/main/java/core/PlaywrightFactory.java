@@ -67,7 +67,9 @@ public class PlaywrightFactory {
         int height = isMobile ? Integer.parseInt(config.getProperty("mobileHeight"))
                 : Integer.parseInt(config.getProperty("deskHeight"));
 
-        browserContext.set(getBrowser().newContext(new Browser.NewContextOptions().setViewportSize(width, height)));
+        browserContext.set(getBrowser().newContext(new Browser.NewContextOptions()
+                .setViewportSize(width, height)
+                .setBaseURL(Configuration.get().getProperty("url"))));
         getBrowserContext().setDefaultTimeout(Integer.parseInt(config.getProperty("timeout")));
 
         page.set(getBrowserContext().newPage());

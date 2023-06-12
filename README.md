@@ -9,10 +9,10 @@ This framework run on Java 11.
 3. Choose the command line below to run test on Web or Mobile:
 
 On Web:
-`mvn test -Dgroups="RunOnWeb"`
+`mvn test -DisMobile=false`
 
 On Mobile:
-`mvn test -Dgroups="RunOnMobile"`
+`mvn test -DisMobile=true`
 
 ## Use Test Generator
 Open terminal of your project and run the command line below:
@@ -29,3 +29,6 @@ When running the tests, `allure-results` folder is generated.
 To view report, use command:
 
 `allure serve allure-results`
+
+### The list test cases supported run on Mobile:
+1. HeaderLocationTest

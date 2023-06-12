@@ -7,7 +7,8 @@ import core.PlaywrightFactory;
 import core.enums.ENVIRONMENT;
 import io.qameta.allure.Allure;
 import org.testng.annotations.*;
-import pages.web.*;
+
+import pages.*;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
@@ -27,8 +28,10 @@ public class PlaywrightRunner {
     @PlaywrightPage
     protected Contact contactPage;
 
+    protected Common common;
     @PlaywrightPage
     protected CareersPage careersPage;
+
     @BeforeTest
     public void loadEnvironment() {
         try {
@@ -48,7 +51,10 @@ public class PlaywrightRunner {
         factory = new PlaywrightFactory();
         page = factory.initBrowser(Configuration.get());
         loadPages(this, page);
-        page.navigate(Configuration.get().getProperty("url"));
+        page.navigate("");
+        if (Boolean.parseBoolean(Configuration.get().getProperty("isMobile"))) {
+            homePage.clickAcceptAllCookie();
+        }
     }
 
     @BeforeMethod

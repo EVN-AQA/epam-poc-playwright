@@ -1,9 +1,8 @@
-package pages.web;
+package pages;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.qameta.allure.Step;
-import com.microsoft.playwright.options.LoadState;
 import org.testng.asserts.SoftAssert;
 
 import java.util.Objects;
@@ -38,6 +37,11 @@ public class HeaderPage extends Common{
         else {
             headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(mainNavigationName)).last().click();
         }
+    }
+
+    @Step("Click on Hamburger menu")
+    public void clickHamburgerMenu() {
+        headerPage.getByRole(AriaRole.BANNER).getByRole(AriaRole.BUTTON).first().click();
     }
 
     @Step("Verify corresponding navigation {navigationName}")
