@@ -65,10 +65,15 @@ public class PlaywrightRunner {
     }
 
     @AfterMethod
-    public void captureScreen(Method method) {
-        attachScreenshot(method.getName());
+    public void captureScreen(Method method, Object[] dataProviders) {
+        String methodName = method.getName();
+        if(dataProviders.length != 0) {
+            methodName += dataProviders[0].toString();
+        }
+
+        attachScreenshot(methodName);
         if (Boolean.parseBoolean(Configuration.get().getProperty("isTracing"))) {
-            factory.stopTracing(method.getName());
+            factory.stopTracing(methodName);
         }
     }
 
