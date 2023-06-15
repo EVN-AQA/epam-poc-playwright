@@ -2,9 +2,12 @@ package pages;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import core.enums.LOCATION;
+import core.enums.MENU;
 import io.qameta.allure.Step;
 import org.testng.asserts.SoftAssert;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
@@ -23,6 +26,7 @@ public class HeaderPage extends Common{
 
     private static final String MAIN_NAVIGATION = ".top-navigation-ui-23";
     private static final String INDUSTRIES = "ul>li[class='top-navigation__item epam']:nth-child(2)";
+
     public HeaderPage(Page page) {
         super(page);
         this.headerPage = page;
@@ -31,8 +35,8 @@ public class HeaderPage extends Common{
 
     @Step("Click on main navigation {mainNavigationName} option")
     public void clickMainNavigationOption(String mainNavigationName) {
-        if (Objects.equals(mainNavigationName, "Contact us")) {
-            headerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("CONTACT US")).click();
+        if (Objects.equals(mainNavigationName, MENU.CONTACT_US.getName())) {
+            headerPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName(MENU.CONTACT_US.getName().toUpperCase())).click();
         }
         else {
             headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(mainNavigationName)).last().click();
@@ -42,12 +46,6 @@ public class HeaderPage extends Common{
     @Step("Click on Hamburger menu")
     public void clickHamburgerMenu() {
         headerPage.getByRole(AriaRole.BANNER).getByRole(AriaRole.BUTTON).first().click();
-    }
-
-    @Step("Verify corresponding navigation {navigationName}")
-    public void verifyCorrespondingNavigation(String navigationName) {
-        assertThat(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(navigationName)).first()).isVisible();
-
     }
 
     @Step("Click on Location menu")
@@ -60,24 +58,31 @@ public class HeaderPage extends Common{
         headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(locationName)).click();
     }
 
+    @Step("Navigate to Careers page")
+    public void navigateToCareersPage() {
+        headerPage.locator(CAREER).click();
+        headerPage.waitForLoadState();
+    }
+
+    /* ================================ VERIFY ================================= */
+
     @Step("Verify Location default text is displayed")
     public void verifyLocationDefaultTextDisplayed() {
         assertThat(headerPage.locator(LOCATION_MENU_BTN)).hasText("Global (EN)");
     }
 
+    @Step("Verify corresponding navigation {navigationName}")
+    public void verifyCorrespondingNavigation(String navigationName) {
+        assertThat(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(navigationName)).first()).isVisible();
+
+    }
+
     @Step("Verify Location menu is displayed")
     public void verifyLocationMenuDisplayed() {
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Global (English)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Česká Republika (Čeština)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Czech Republic (English)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("DACH (Deutsch)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Hungary (English)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("India (English)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("日本 (日本語)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Polska (Polski)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("СНГ (Русский)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Україна (Українська)")).isVisible());
-        sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("中国 (中文)")).isVisible());
+        List<String> locations = LOCATION.getLocationList();
+        for (String location  : locations) {
+            sortAssert.assertTrue(headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(location)).isVisible());
+        }
         sortAssert.assertAll();
     }
 
@@ -171,13 +176,4 @@ public class HeaderPage extends Common{
         assertThat(headerPage.locator(CAREER)).hasCSS("color", "rgb(0, 246, 255)");
     }
 
-    @Step("Click on Services item")
-    public void ClickOnServicesItem(){
-        headerPage.locator(SERVICES_LINK).click();
-
-    }
-    public void navigateToCareersPage() {
-        headerPage.locator(CAREER).click();
-        headerPage.waitForLoadState();
-    }
 }

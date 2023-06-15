@@ -1,6 +1,7 @@
 package com.epam.tests;
 
 import com.epam.runners.PlaywrightRunner;
+import core.enums.MENU;
 import io.qameta.allure.Description;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,25 +13,27 @@ public class ContactUsTest extends PlaywrightRunner {
         headerPage.verifyContactUsItemDisplayed();
         headerPage.verifyColorContactUsItem();
     }
+
     @Test
     @Description("Test case 643")
     public void verifyContactPageDisplayed() {
-        headerPage.clickMainNavigationOption("Contact us");
+        headerPage.clickMainNavigationOption(MENU.CONTACT_US.getName());
         contactPage.verifyContactUsPageDisplayed();
-        headerPage.clickMainNavigationOption("Careers");
+        headerPage.clickMainNavigationOption(MENU.CAREERS.getName());
         headerPage.verifyContactUsItemDisplayed();
-        headerPage.clickMainNavigationOption("Contact us");
+        headerPage.clickMainNavigationOption(MENU.CONTACT_US.getName());
         contactPage.verifyContactUsPageDisplayed();
     }
+
     @Test
     @Description("Test case 639 + 642")
     public void verifyContentOfContactUs() {
         String address = "41 University Drive • Suite 202, Newtown, PA 18940 • US";
         String p = "+1-267-759-9000";
         String f = "+1-267-759-8989";
-        headerPage.clickMainNavigationOption("Contact us");
+        headerPage.clickMainNavigationOption(MENU.CONTACT_US.getName());
         contactPage.verifyContactUsPageDisplayed();
-        contactPage.verifyBreadscumbLink("Contact Us");
+        contactPage.verifyBreadscumbLink(MENU.CONTACT_US.getName());
         contactPage.verifyContentOfContactUs(address,p,f);
     }
 }
