@@ -2,6 +2,7 @@ package com.epam.tests;
 
 import com.epam.runners.PlaywrightRunner;
 import core.Configuration;
+import core.enums.MENU;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -12,11 +13,11 @@ public class HeaderLocationTest extends PlaywrightRunner {
     @DataProvider(name = "navOptions")
     public Object[][] navOptions() {
         return new Object[][]{
-                {"Services"},
-                {"Insights"},
-                {"About"},
-                {"Careers"},
-                {"Contact us"}
+                {MENU.SERVICES.getName()},
+                {MENU.INSIGHTS.getName()},
+                {MENU.ABOUT.getName()},
+                {MENU.CAREERS.getName()},
+                {MENU.CONTACT_US.getName()}
         };
     }
 
