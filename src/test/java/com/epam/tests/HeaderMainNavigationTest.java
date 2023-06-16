@@ -28,7 +28,7 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         headerPage.verifyServicesLabelDisplayed();
     }
 
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 586 + 580")
     public void verifyMainNavigationAlwaysAvailable() {
         homePage.navigate();

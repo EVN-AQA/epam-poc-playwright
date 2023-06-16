@@ -40,7 +40,7 @@ public class HeaderLocationTest extends PlaywrightRunner {
         headerPage.verifyLocationDefaultTextDisplayed();
     }
 
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 573")
     public void verifyAllLocationAreDisplayed() {
         headerPage.clickLocationMenu();

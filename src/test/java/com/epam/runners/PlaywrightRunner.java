@@ -32,7 +32,7 @@ public class PlaywrightRunner {
     @PlaywrightPage
     protected CareersPage careersPage;
 
-    @BeforeTest
+    @BeforeTest(alwaysRun=true)
     public void loadEnvironment() {
         try {
             if (System.getProperty("env") != null) {
@@ -46,7 +46,7 @@ public class PlaywrightRunner {
         }
     }
 
-    @BeforeClass
+    @BeforeClass(alwaysRun=true)
     public void initBrowser() {
         factory = new PlaywrightFactory();
         page = factory.initBrowser(Configuration.get());

@@ -71,7 +71,7 @@ public class SearchTest extends PlaywrightRunner {
         careersPage.clickOnFindButton();
         careersPage.verifySearchResultOfSelection();
     }
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 671")
     public void verifySearchWithCombination() {
         headerPage.navigateToCareersPage();

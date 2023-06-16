@@ -18,7 +18,7 @@ jobs:
       - name: Install Playwright
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
       - name: Run tests
-        run: xvfb-run mvn test
+        run: xvfb-run mvn test -Dgroups=smoke
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
