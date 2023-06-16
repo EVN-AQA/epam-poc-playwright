@@ -1,7 +1,9 @@
 package com.epam.tests;
 import com.epam.runners.PlaywrightRunner;
+import core.enums.MENU;
 import io.qameta.allure.Description;
 import io.qameta.allure.testng.Tag;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,75 +17,80 @@ public class SearchTest extends PlaywrightRunner {
                 {"Open to Relocation"}
         };
     }
+
+    @BeforeMethod()
+    public void beforeMethod() {
+        headerPage.clickMainNavigationOption(MENU.CAREERS.getName());
+    }
+
     @Test
     @Description("Test case 664")
     public void verifySearchSessionDisplayed() {
-        headerPage.navigateToCareersPage();
         careersPage.verifySearchLabel();
         careersPage.verifyPlaceHolderSearch();
     }
+
     @Test
     @Description("Test case 674")
     public void  verifySearchResultWithoutInput() {
-        headerPage.navigateToCareersPage();
         careersPage.clickOnFindButton();
         careersPage.verifyResultTitle();
     }
+
     @Test
     @Description("Test case 673")
     public void verifyNoResultMessage() {
-        headerPage.navigateToCareersPage();
         careersPage.inputJobID("abc23avc");
         careersPage.clickOnFindButton();
         careersPage.verifyNoResultMessage("Don’t see the dream job you were hoping to find?");
     }
+
     @Test
     @Description("Test case 666")
     public void verifySearchJobOfAllCountryAndSkill() {
-        headerPage.navigateToCareersPage();
         careersPage.clickOnFindYourDreamJob();
         careersPage.verifyResultTitle();
     }
+
     @Test
     @Description("Test case 667")
     public void verifySearchMatchingWithKeyword() {
         String jobId = "test";
-        headerPage.navigateToCareersPage();
         careersPage.inputJobID(jobId);
         careersPage.clickOnFindButton();
         careersPage.verifyTitleResultWithKeyword(jobId);
     }
+
     @Test
     @Description("Test case 670 + 677")
     public void verifySearchMatchingWithSkill() {
-        headerPage.navigateToCareersPage();
         careersPage.selectCountry("Argentina", "All Cities in Argentina");
         careersPage.selectSkill("Business and Data Analysis");
         careersPage.clickOnFindButton();
         careersPage.verifySearchResultOfSelection();
         careersPage.verifySortOption("Relevance");
     }
+
     @Test
     @Description("Test case 669")
     public void verifySearchWithLocation() {
-        headerPage.navigateToCareersPage();
         careersPage.selectCountry("Argentina", "All Cities in Argentina");
         careersPage.clickOnFindButton();
         careersPage.verifySearchResultOfSelection();
     }
+
     @Test
     @Description("Test case 671")
     public void verifySearchWithCombination() {
-        headerPage.navigateToCareersPage();
         careersPage.inputJobID("automation");
         careersPage.selectCountry("Singapore", "All Cities in Singapore");
         careersPage.clickOnFindButton();
         careersPage.verifySearchResultOfSelection();
     }
+
     @Test(dataProvider = "filterSearching")
     @Description("Test case 672")
     public void verifySearchWithFilterSearching(String filter) {
-        headerPage.clickMainNavigationOption("Careers");
         careersPage.clickOnFilterSearching(filter);
         careersPage.verifySearchResultOfSelection();
     }
