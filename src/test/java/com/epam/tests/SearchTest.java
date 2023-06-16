@@ -1,5 +1,6 @@
 package com.epam.tests;
 import com.epam.runners.PlaywrightRunner;
+import core.enums.MENU;
 import io.qameta.allure.Description;
 import io.qameta.allure.testng.Tag;
 import org.testng.annotations.BeforeMethod;
@@ -17,9 +18,9 @@ public class SearchTest extends PlaywrightRunner {
         };
     }
 
-    @BeforeMethod
+    @BeforeMethod()
     public void beforeMethod() {
-        headerPage.navigateToCareersPage();
+        headerPage.clickMainNavigationOption(MENU.CAREERS.getName());
     }
 
     @Test

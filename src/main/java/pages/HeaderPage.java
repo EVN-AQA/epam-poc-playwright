@@ -41,6 +41,7 @@ public class HeaderPage extends Common{
         else {
             headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(mainNavigationName)).last().click();
         }
+        headerPage.waitForLoadState();
     }
 
     @Step("Click on Hamburger menu")
@@ -56,12 +57,6 @@ public class HeaderPage extends Common{
     @Step("Click on Location {locationName} option")
     public void clickLocationOption(String locationName) {
         headerPage.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(locationName)).click();
-    }
-
-    @Step("Navigate to Careers page")
-    public void navigateToCareersPage() {
-        headerPage.locator(CAREER).click();
-        headerPage.waitForLoadState();
     }
 
     /* ================================ VERIFY ================================= */
