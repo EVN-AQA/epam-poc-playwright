@@ -3,11 +3,11 @@ package com.epam.tests;
 import com.epam.runners.PlaywrightRunner;
 import core.enums.MENU;
 import io.qameta.allure.Description;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+
 public class ContactUsTest extends PlaywrightRunner {
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 592 + 595 + 594 ")
     public void verifyContactUsDisplayed() {
         headerPage.verifyContactUsItemDisplayed();
@@ -25,7 +25,7 @@ public class ContactUsTest extends PlaywrightRunner {
         contactPage.verifyContactUsPageDisplayed();
     }
 
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 639 + 642")
     public void verifyContentOfContactUs() {
         String address = "41 University Drive • Suite 202, Newtown, PA 18940 • US";

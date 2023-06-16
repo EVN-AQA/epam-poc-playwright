@@ -18,7 +18,7 @@ public class SearchTest extends PlaywrightRunner {
         };
     }
 
-    @BeforeMethod()
+    @BeforeMethod(alwaysRun=true)
     public void beforeMethod() {
         headerPage.clickMainNavigationOption(MENU.CAREERS.getName());
     }
@@ -79,7 +79,7 @@ public class SearchTest extends PlaywrightRunner {
         careersPage.verifySearchResultOfSelection();
     }
 
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 671")
     public void verifySearchWithCombination() {
         careersPage.inputJobID("automation");

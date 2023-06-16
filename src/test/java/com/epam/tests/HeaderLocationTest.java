@@ -26,7 +26,7 @@ public class HeaderLocationTest extends PlaywrightRunner {
         return JsonReader.load("testData/LocationData.json");
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun=true)
     public void setConditions() {
         homePage.navigate();
         if (Boolean.parseBoolean(Configuration.get().getProperty("isMobile"))) {
@@ -41,7 +41,7 @@ public class HeaderLocationTest extends PlaywrightRunner {
         headerPage.verifyLocationDefaultTextDisplayed();
     }
 
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 573")
     public void verifyAllLocationAreDisplayed() {
         headerPage.clickLocationMenu();

@@ -32,7 +32,7 @@ public class PlaywrightRunner {
     @PlaywrightPage
     protected CareersPage careersPage;
 
-    @BeforeTest
+    @BeforeTest(alwaysRun=true)
     public void loadEnvironment() {
         try {
             if (System.getProperty("env") != null) {
@@ -46,7 +46,7 @@ public class PlaywrightRunner {
         }
     }
 
-    @BeforeClass
+    @BeforeClass(alwaysRun=true)
     public void initBrowser() {
         factory = new PlaywrightFactory();
         page = factory.initBrowser(Configuration.get());
@@ -57,14 +57,14 @@ public class PlaywrightRunner {
         }
     }
 
-    @BeforeMethod
+    @BeforeMethod (alwaysRun=true)
     public void setDebug() {
         if (Boolean.parseBoolean(Configuration.get().getProperty("isTracing"))) {
             factory.startTracing();
         }
     }
 
-    @AfterMethod
+    @AfterMethod (alwaysRun=true)
     public void captureScreen(Method method, Object[] dataProviders) {
         String methodName = method.getName();
         if(dataProviders.length != 0) {
@@ -77,7 +77,7 @@ public class PlaywrightRunner {
         }
     }
 
-    @AfterClass
+    @AfterClass (alwaysRun=true)
     public void closeBrowser() {
         page.context().browser().close();
     }

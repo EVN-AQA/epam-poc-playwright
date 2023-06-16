@@ -19,7 +19,7 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         };
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun=true)
     public void beforeMethod() {
         homePage.navigate();
     }
@@ -34,7 +34,7 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         headerPage.verifyServicesLabelDisplayed();
     }
 
-    @Test
+    @Test (groups = { "smoke" })
     @Description("Test case 586 + 580")
     public void verifyMainNavigationAlwaysAvailable() {
         headerPage.clickMainNavigationOption(MENU.SERVICES.getName());
