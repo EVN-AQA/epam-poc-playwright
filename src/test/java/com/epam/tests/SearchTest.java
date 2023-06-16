@@ -18,7 +18,7 @@ public class SearchTest extends PlaywrightRunner {
         };
     }
 
-    @BeforeMethod()
+    @BeforeMethod(alwaysRun=true)
     public void beforeMethod() {
         headerPage.clickMainNavigationOption(MENU.CAREERS.getName());
     }

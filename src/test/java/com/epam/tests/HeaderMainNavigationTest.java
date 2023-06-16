@@ -19,7 +19,7 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         };
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun=true)
     public void beforeMethod() {
         homePage.navigate();
     }
