@@ -57,14 +57,14 @@ public class PlaywrightRunner {
         }
     }
 
-    @BeforeMethod
+    @BeforeMethod (alwaysRun=true)
     public void setDebug() {
         if (Boolean.parseBoolean(Configuration.get().getProperty("isTracing"))) {
             factory.startTracing();
         }
     }
 
-    @AfterMethod
+    @AfterMethod (alwaysRun=true)
     public void captureScreen(Method method, Object[] dataProviders) {
         String methodName = method.getName();
         if(dataProviders.length != 0) {
@@ -77,7 +77,7 @@ public class PlaywrightRunner {
         }
     }
 
-    @AfterClass
+    @AfterClass (alwaysRun=true)
     public void closeBrowser() {
         page.context().browser().close();
     }
