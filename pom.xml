@@ -75,9 +75,6 @@
                         <suiteXmlFile>
                             src\test\resources\testNG\desktop.xml
                         </suiteXmlFile>
-                        <suiteXmlFile>
-                            src\test\resources\testNG\smoke.xml
-                        </suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
