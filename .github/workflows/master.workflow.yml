@@ -19,7 +19,7 @@ jobs:
       - name: Install Playwright
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
       - name: Run tests
-        run: xvfb-run mvn test
+        run: xvfb-run mvn test -Dsurefire.suiteXmlFiles="testNG/desktop.xml"
 
       - name: Get Allure history
         uses: actions/checkout@v2
