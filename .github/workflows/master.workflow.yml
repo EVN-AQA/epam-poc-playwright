@@ -45,3 +45,14 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.ACTION_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
+
+      - name: Send email when test run Failed
+        uses: dawidd6/action-send-mail@v3
+        if: ${{ failure() }}
+        with:
+          server_address: smtp.gmail.com
+          subject: "Playwright test results for ${{ github.repository }}"
+          from: Test Suite
+          body:
+            ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
+          to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com

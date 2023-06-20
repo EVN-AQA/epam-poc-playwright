@@ -26,3 +26,14 @@ jobs:
         with:
           name: allure-results
           path: allure-results/
+
+      - name: Send email after test run
+        uses: dawidd6/action-send-mail@v3
+        if: always()
+        with:
+          server_address: smtp.gmail.com
+          subject: "Playwright test results for ${{ github.repository }}"
+          from: Test Suite
+          body:
+            ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
+          to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com
