@@ -28,7 +28,7 @@ jobs:
           path: allure-results/
 
       - name: Send email after test run
-        uses: cybervoid//action-send-email-nodemailer@v1
+        uses: cybervoid/action-send-email-nodemailer@v1.0
         if: always()
         with:
           to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com

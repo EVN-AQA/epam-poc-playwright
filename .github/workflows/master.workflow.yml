@@ -47,7 +47,7 @@ jobs:
           PUBLISH_DIR: allure-history
 
       - name: Send email when test run Failed
-        uses: cybervoid//action-send-email-nodemailer@v1
+        uses: cybervoid/action-send-email-nodemailer@v1.0
         if: ${{ failure() }}
         with:
           to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com
