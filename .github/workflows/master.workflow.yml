@@ -55,7 +55,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "Playwright test results for ${{ github.repository }}"
-          from: Test Suite
+          from: luan.nguyenbao@gmail.com
           body:
             The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
-          to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com
+          to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com,luan.nguyenbao@gmail.com
