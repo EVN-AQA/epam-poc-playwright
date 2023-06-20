@@ -47,15 +47,10 @@ jobs:
           PUBLISH_DIR: allure-history
 
       - name: Send email when test run Failed
-        uses: dawidd6/action-send-mail@v3
+        uses: cybervoid//action-send-email-nodemailer@v1
         if: ${{ failure() }}
         with:
-          server_address: smtp.office365.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "Playwright test results for ${{ github.repository }}"
-          from: Test Suite Playwright
-          body:
-            The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
           to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com
+          from: '"Test Suite Playwright <luan_nguyen@epam.com>"'
+          subject: 'Playwright test results for ${{ github.repository }}'
+          body: The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
