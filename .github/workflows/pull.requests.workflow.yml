@@ -28,10 +28,9 @@ jobs:
           path: allure-results/
 
       - name: Send email after test run
-        uses: cybervoid/action-send-email-nodemailer@v1.0
+        uses: cinotify/github-action@main
         if: always()
         with:
-          to: khiem_cao@epam.com,dung_pham@epam.com,luan_nguyen@epam.com
-          from: '"Test Suite Playwright <luan_nguyen@epam.com>"'
+          to: 'khiem_cao@epam.com','dung_pham@epam.com','luan_nguyen@epam.com'
           subject: 'Playwright test results for ${{ github.repository }}'
-          body: The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
+          body: 'The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}'
