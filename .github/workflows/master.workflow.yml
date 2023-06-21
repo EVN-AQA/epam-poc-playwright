@@ -47,7 +47,7 @@ jobs:
           PUBLISH_DIR: allure-history
 
       - name: Send email when test run Failed
-        uses: cinotify/github-action@main
+        uses: cinotify/github-action@v1.1.2
         if: ${{ failure() }}
         with:
           to: 'khiem_cao@epam.com','dung_pham@epam.com','luan_nguyen@epam.com'
