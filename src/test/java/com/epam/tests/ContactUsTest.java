@@ -29,8 +29,8 @@ public class ContactUsTest extends PlaywrightRunner {
     @Description("Test case 639 + 642")
     public void verifyContentOfContactUs() {
         String address = "41 University Drive • Suite 202, Newtown, PA 18940 • US";
-        String p = "+1-267-759-90001";
-        String f = "+1-267-759-89891";
+        String p = "+1-267-759-9000";
+        String f = "+1-267-759-8989";
         headerPage.clickMainNavigationOption(MENU.CONTACT_US.getName());
         contactPage.verifyContactUsPageDisplayed();
         contactPage.verifyBreadscumbLink(MENU.CONTACT_US.getName());
