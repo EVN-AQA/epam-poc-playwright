@@ -28,9 +28,15 @@ jobs:
           path: allure-results/
 
       - name: Send email after test run
-        uses: cinotify/github-action@v1.1.2
+        uses: devellany/send-mail@v1.0.2
         if: always()
         with:
-          to: 'khiem_cao@epam.com','dung_pham@epam.com','luan_nguyen@epam.com'
-          subject: 'Playwright test results for ${{ github.repository }}'
-          body: 'The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}'
+          host: smtp.google.com
+          port: 465
+          account: ${{secrets.ACCOUNT}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          sender: EPAM Playwright
+          from: ${{secrets.MAIL_ADDRESS}}
+          to: khiem_cao@epam.com,luan_nguyen@epam.com
+          subject: Playwright test results for ${{ github.repository }}
+          body: The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
