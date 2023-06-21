@@ -47,15 +47,14 @@ jobs:
           PUBLISH_DIR: allure-history
 
       - name: Send email when test run Failed
-        uses: AlexisMateo/sendmail-action@5
+        uses: wadeww/send-email-action@v1
         if: ${{ failure() }}
         with:
-          smtp-server: smtp.gmail.com
-          smtp-server-port: 465
-          auth-user: ${{secrets.MAIL_ADDRESS}}
-          auth-password: ${{secrets.MAIL_PASSWORD}}
+          server_address: smtp.gmail.com
+          port: 465
+          username: ${{secrets.MAIL_ADDRESS}}
+          password: ${{secrets.MAIL_PASSWORD}}
           subject: Playwright test results for ${{ github.repository }}
           body: The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
-          from: ${{secrets.ACCOUNT}}
+          from: Epam Playwright
           to: khiem_cao@epam.com,luan_nguyen@epam.com
-          is-tls: false
