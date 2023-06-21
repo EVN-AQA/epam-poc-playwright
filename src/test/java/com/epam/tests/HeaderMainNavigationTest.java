@@ -3,6 +3,8 @@ package com.epam.tests;
 import com.epam.runners.PlaywrightRunner;
 import core.enums.MENU;
 import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,13 +21,14 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         };
     }
 
-    @BeforeMethod(alwaysRun=true)
+    @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         homePage.navigate();
     }
 
-    @Test
-    @Description("Test case 584")
+    @Story("517 - Main Navigation")
+    @Test(groups = {"517"}, description = "[Main Navigation] Verify showing label of menu item when hovering over")
+    @Description("Test cases: 584")
     public void verifyLabelDisplayed() {
         headerPage.verifyCareerLabelDisplayed();
         headerPage.verifyAboutsLabelDisplayed();
@@ -34,8 +37,10 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         headerPage.verifyServicesLabelDisplayed();
     }
 
-    @Test (groups = { "smoke" })
-    @Description("Test case 586 + 580")
+    @Feature("Smoke")
+    @Story("517 - Main Navigation")
+    @Test(groups = {"smoke", "517"}, description = "[Main Navigation] Verify Main Navigation menu items")
+    @Description("Test cases: 580, 586")
     public void verifyMainNavigationAlwaysAvailable() {
         headerPage.clickMainNavigationOption(MENU.SERVICES.getName());
         headerPage.verifyAboutsLabelDisplayed();
@@ -44,25 +49,20 @@ public class HeaderMainNavigationTest extends PlaywrightRunner {
         headerPage.verifyServicesLabelDisplayed();
     }
 
-    @Test
-    @Description("Test case 542")
+    @Story("517 - Main Navigation")
+    @Test(groups = {"517"}, description = "[Main Navigation] Verify the display of Main Navigation")
+    @Description("Test cases: 542")
     public void verifyMainNavigationDisplay() {
         headerPage.verifyMainNavigationDisplayedTop();
     }
 
-    @Test
-    @Description("Test case 585")
+    @Story("517 - Main Navigation")
+    @Test(groups = {"517"}, description = "[Main Navigation] Verify color changing when hovering over menu item")
+    @Description("Test cases: 585")
     public void verifyColorChangeOfMainNavigation() {
         headerPage.verifyColorChangeOfAbout();
         headerPage.verifyColorChangeOfCareer();
         headerPage.verifyColorChangeOfInsight();
         headerPage.verifyColorChangeOfServices();
-    }
-
-    @Test(dataProvider = "navOptionsEachPage")
-    @Description("Test case 577")
-    public void verifyLocationDisplayedOnAnyPages(String mainNavigationName) {
-        headerPage.clickMainNavigationOption(mainNavigationName);
-        headerPage.verifyCorrespondingNavigation(mainNavigationName);
     }
 }

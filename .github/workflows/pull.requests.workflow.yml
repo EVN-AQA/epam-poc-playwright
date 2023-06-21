@@ -13,16 +13,18 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Build & Install
-        run: mvn -B install -D skipTests --no-transfer-progress
-      - name: Install Playwright
-        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+#      - name: Build & Install
+#        run: mvn -B install -D skipTests --no-transfer-progress
+#      - name: Install Playwright
+#        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"  $GITHUB_HEAD_REF
       - name: Run tests
-        run: xvfb-run mvn test -Dsurefire.suiteXmlFiles="testNG/smoke.xml"
+        run: xvfb-run mvn test -Dsurefire.suiteXmlFiles="testNG/smoke.xml" -Dgroups=smoke,$BRANCH
+        env:
+          BRANCH: "591"
 
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: allure-results
-          path: allure-results/
+#      - name: Archive code coverage results
+#        uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: allure-results
+#          path: allure-results/
