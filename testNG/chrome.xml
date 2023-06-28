@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="EPAM site" parallel="classes" thread-count="2">
+    <test name="Chrome - Web UI">
+        <parameter name="browserName" value="Chrome" />
+        <parameter name="isHeadless" value="false" />
+        <parameter name="isMobile" value="false" />
+        <parameter name="isTracing" value="false" />
+        <packages>
+            <package name="com.epam.tests.*" />
+        </packages>
+    </test>
+</suite>

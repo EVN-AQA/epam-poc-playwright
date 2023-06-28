@@ -22,10 +22,14 @@ public class Configuration {
         return props;
     }
 
+    public static void update(String key, String value) {
+        get().setProperty(key, value);
+    }
+
     private static void updateEnvKey(String key) {
         String value = System.getProperty(key);
         if (value != null) {
-            props.setProperty(key, value);
+            get().setProperty(key, value);
         }
     }
 

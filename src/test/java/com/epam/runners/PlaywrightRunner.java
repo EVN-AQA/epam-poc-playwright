@@ -28,12 +28,12 @@ public class PlaywrightRunner {
     @PlaywrightPage
     protected Contact contactPage;
 
-    protected Common common;
     @PlaywrightPage
     protected CareersPage careersPage;
 
+    @Parameters({ "browserName", "isHeadless", "isMobile" })
     @BeforeTest(alwaysRun=true)
-    public void loadEnvironment() {
+    public void loadEnvironment(String browserName, String isHeadless, String isMobile) {
         try {
             if (System.getProperty("env") != null) {
                 ENVIRONMENT env = ENVIRONMENT.valueOf(System.getProperty("env"));
@@ -41,6 +41,9 @@ public class PlaywrightRunner {
             } else {
                 Configuration.load(ENVIRONMENT.LOCAL);
             }
+            Configuration.update("browserName", browserName);
+            Configuration.update("isHeadless", isHeadless);
+            Configuration.update("isMobile", isMobile);
         } catch (IllegalArgumentException ex) {
             Configuration.load(ENVIRONMENT.LOCAL);
         }
@@ -57,22 +60,24 @@ public class PlaywrightRunner {
         }
     }
 
+    @Parameters({ "isTracing" })
     @BeforeMethod (alwaysRun=true)
-    public void setDebug() {
-        if (Boolean.parseBoolean(Configuration.get().getProperty("isTracing"))) {
+    public void setDebug(String isTracing) {
+        if (Boolean.parseBoolean(isTracing)) {
             factory.startTracing();
         }
     }
 
+    @Parameters({ "isTracing" })
     @AfterMethod (alwaysRun=true)
-    public void captureScreen(Method method, Object[] dataProviders) {
+    public void captureScreen(Method method, Object[] dataProviders, String isTracing) {
         String methodName = method.getName();
         if(dataProviders.length != 0) {
             methodName += dataProviders[0].toString();
         }
 
         attachScreenshot(methodName);
-        if (Boolean.parseBoolean(Configuration.get().getProperty("isTracing"))) {
+        if (Boolean.parseBoolean(isTracing)) {
             factory.stopTracing(methodName);
         }
     }

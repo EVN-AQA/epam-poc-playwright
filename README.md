@@ -9,13 +9,13 @@ This framework run on Java 11.
 3. Choose the command line below to run test on Web or Mobile:
 
 On Web:
-`mvn test -Dsurefire.suiteXmlFiles="testNG/desktop.xml" -DisMobile=false`
+`mvn test -Dsurefire.suiteXmlFiles="testNG/regression.xml" -DisMobile=false`
 
 On Mobile:
-`mvn test -Dsurefire.suiteXmlFiles="testNG/desktop.xml" -DisMobile=true`
+`mvn test -Dsurefire.suiteXmlFiles="testNG/regression.xml" -DisMobile=true`
 
 If you need to re-run the test failed, set the rerunFailingTestsCount property to be a value larger than 0:
-`mvn test -Dsurefire.rerunFailingTestsCount=2 -Dsurefire.suiteXmlFiles="testNG/desktop.xml"`
+`mvn test -Dsurefire.rerunFailingTestsCount=2 -Dsurefire.suiteXmlFiles="testNG/regression.xml"`
 
 ## Use Test Generator
 Open terminal of your project and run the command line below:
