@@ -1,9 +1,9 @@
-name: Released workflow
+name: Product Released workflow
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  Execute_Tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -16,17 +16,28 @@ jobs:
         run: mvn -B install -D skipTests --no-transfer-progress
       - name: Install Playwright
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
-      - name: Run tests
+      - name: Regression testing
+        id: regression_testing
         run: xvfb-run mvn test -Dsurefire.rerunFailingTestsCount=2 -Dsurefire.suiteXmlFiles="testNG/desktop.xml"
-      - name: Send email when test run Failed
+      - name: Export Test Result
+        run: echo ${{ steps.regression_testing.outputs.* }}
+
+  Notify_Test_Result:
+    needs: Execute_Tests
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify if failure
         uses: dawidd6/action-send-mail@v3
-        if: failure()
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{secrets.MAIL_ADDRESS}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Playwright regression test results for ${{ github.repository }}
-          body: The ${{ github.job }} job in ${{ github.workflow }} of ${{ github.repository }} has status ${{ job.status }}
-          from: Epam Playwright
-          to: khiem_cao@epam.com,luan_nguyen@epam.com
+          subject: [${{ github.repository }}][Released] Regression Results
+          body: |
+            Dear team,
+            The ${{ github.workflow }} of ${{ github.repository }} has status <br>${{ job.status }}</br>
+            Regards.
+          from: Epam VietNam POC
+          to: khiem_cao@epam.com
